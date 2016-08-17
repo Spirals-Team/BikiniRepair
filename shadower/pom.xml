@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>fr.inria.lille.spirals</groupId>
+        <artifactId>bikinirepair</artifactId>
+        <version>${current.version}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <name>Shadower</name>
+    <artifactId>shadower</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>fr.inria.lille.spirals</groupId>
+            <artifactId>services</artifactId>
+            <version>${current.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.inria.lille.spirals</groupId>
+            <artifactId>common</artifactId>
+            <version>${current.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.inria.lille.spirals</groupId>
+            <artifactId>regression</artifactId>
+            <version>${current.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.3.11.v20160721</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-proxy</artifactId>
+            <version>9.3.11.v20160721</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>9.3.11.v20160721</version>
+        </dependency>
+    </dependencies>
+</project>
