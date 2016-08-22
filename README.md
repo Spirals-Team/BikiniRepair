@@ -1,9 +1,9 @@
 # BikiniRepair
 
 
-his is the repository of BanditRepair.
+This is the repository of BikiniRepair.
 
-BanditRepair is a system that systematically explores and assesses a set of possible runtime patches developed at Inria Lille.
+BikiniRepair is a system that generates patches and validate them in production developed at Inria Lille.
 
 This code is research code, released under the GPL licence.
 
