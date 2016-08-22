@@ -1,6 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
-
-# Created by https://www.gitignore.io/api/maven
+config.ini
 
 ### Maven ###
 target/
