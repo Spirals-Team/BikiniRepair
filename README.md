@@ -3,7 +3,8 @@
 BikiniRepair is a prototype system that generates patches and validate them in production without tests..
 This code is research code, released under the GPL licence.
 
-[Production-Driven Patch Generation and Validation](https://hal.archives-ouvertes.fr/hal-01370709/document) (Thomas Durieux, Youssef Hamadi and Martin Monperrus), Technical report hal-01370709, HAL, 2016.
+[Production-Driven Patch Generation and Validation](http://arxiv.org/pdf/1609.06848) (Thomas Durieux, Youssef Hamadi and Martin Monperrus), Technical report hal-01370709, HAL, 2016.
+
 ```
 @techreport{durieux2016production,
  title = {{Production-Driven Patch Generation and Validation}},
@@ -11,7 +12,9 @@ This code is research code, released under the GPL licence.
  year = {2016},
  institution = {{HAL}},
  number = {hal-01370709},
-}```
+}
+```
+
 ## Getting Started
 
 
