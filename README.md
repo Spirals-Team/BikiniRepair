@@ -1,6 +1,6 @@
-# BikiniRepair
+# Itzal
 
-BikiniRepair is a prototype system that generates patches and validate them in production without tests..
+Itzal is a prototype system that generates patches and validate them in production directly.
 This code is research code, released under the GPL licence.
 
 [Production-Driven Patch Generation and Validation](http://arxiv.org/pdf/1609.06848) (Thomas Durieux, Youssef Hamadi and Martin Monperrus), Technical report hal-01370709, HAL, 2016.
@@ -20,7 +20,7 @@ This code is research code, released under the GPL licence.
 
 ### Run the evaluation
 
-1. Gets the Shadow Dataset: https://github.com/Spirals-Team/shadow-dataset
+1. Gets the benchmark: https://github.com/Spirals-Team/BikiniRepair-benchmark
 2. Builds each docker image on your system
 3. Start BikiniRepair `java -cp target/classes:target/test-classes fr.inria.lille.spirals.bikinirepair.Evaluation` 
 4. BikiniRepair is now available at http://localhost:8080
