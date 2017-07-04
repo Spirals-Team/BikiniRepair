@@ -31,11 +31,37 @@ Long paper: [Production-Driven Patch Generation and Validation](http://arxiv.org
 
 ## Getting Started
 
-
 ### Run the evaluation
 
 1. Gets the benchmark: https://github.com/Spirals-Team/BikiniRepair-benchmark
-2. Builds each docker image on your system
-3. Start Itzal/BikiniRepair `java -cp target/classes:target/test-classes fr.inria.lille.spirals.bikinirepair.Evaluation` 
+2. Builds each docker image on your system.
+    For example:
+    ```
+    cd bugs/mayocat_231/
+    docker build -t shadow-dataset:mayocat_231 .
+    ```
+default tags are:
+    * mayocat_231: shadow-dataset:mayocat_231
+    * mayocat_231_patch: shadow-dataset:mayocat_231_patch
+
+3. compile Iztal: `mvn package -DskipTests`
+4. Start Itzal/BikiniRepair
+
+    starts both version: original and instrument by running:
+        `java -cp bikinirepair-1.0-SNAPSHOT-jar-with-dependencies.jar:target/test-classes fr.inria.lille.spirals.bikinirepair.Evaluation`
+
+    and the shadower:
+        `java -cp bikinirepair-1.0-SNAPSHOT-jar-with-dependencies.jar:target/test-classes fr.inria.lille.spirals.bikinirepair.Evaluation2`
+
 4. The dashboard is now available at http://localhost:8080
 5. Use the python script in the Dataset to reproduce the failure
+
+### Scenario of bugs
+
+#### Mayocat
+
+The null pointer exception occurs when an administrator selects a specific strategy to compute the shipping price of a cart.
+
+#### Broadleaf Ecommerce
+
+The null pointer exception occurs when a webmaster creates a new customer with an already registered email.
