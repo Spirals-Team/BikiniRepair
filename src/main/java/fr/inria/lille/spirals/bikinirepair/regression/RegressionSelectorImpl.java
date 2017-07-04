@@ -44,10 +44,6 @@ public class RegressionSelectorImpl extends AbstractSelector implements
 	public void setDecision(Decision decision) throws RemoteException {
 		this.decision = decision;
 	}
-
-	@Override
-	public boolean isToHandle(Strategy.ACTION action, Object object, Location location) throws RemoteException {
-		return decision.getLocation().equals(location);
-	}
+	
 }
 
