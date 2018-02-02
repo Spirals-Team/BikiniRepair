@@ -1,8 +1,7 @@
 package fr.inria.lille.spirals.bikinirepair.services;
 
-import fr.inria.lille.spirals.bikinirepair.regression.RegressionSelector;
 import fr.inria.lille.spirals.bikinirepair.regression.RegressionSelectorImpl;
-import fr.inria.spirals.npefix.config.Config;
+import fr.inria.spirals.npefix.resi.selector.RegressionSelector;
 import fr.inria.spirals.npefix.resi.selector.Selector;
 
 import java.net.Inet4Address;
@@ -17,7 +16,7 @@ import java.util.Enumeration;
 
 public class Services {
 
-	private static final int registryPort = Config.CONFIG.getServerPort();
+	private static final int registryPort = 10000;
 	private static final String localIp = getDockerIp();
 	private static AddressServerImpl addressServer;
 	private static RegressionSelector regressionServer;
@@ -57,8 +56,7 @@ public class Services {
 
 	public static Selector getPatchServer() {
 		try {
-			Registry registry = LocateRegistry.getRegistry(localIp,
-					registryPort);
+			Registry registry = LocateRegistry.getRegistry(localIp, registryPort);
 			return (Selector) registry.lookup("PatchServer");
 		} catch (Exception e) {
 			return null;

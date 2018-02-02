@@ -88,7 +88,7 @@ public class ProxyServlet extends org.eclipse.jetty.proxy.ProxyServlet {
 
 
 	private void notifyEndRequest(final ShadowRequest request, final ShadowResponse response) {
-		new Thread(new Runnable() {
+		new Thread(Thread.currentThread().getThreadGroup().getParent(), new Runnable() {
 			@Override
 			public void run() {
 				for (int i = 0; i < listeners.size(); i++) {

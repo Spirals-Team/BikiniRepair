@@ -14,6 +14,7 @@ public class ShadowResponse {
 	private String contentType;
 	private Map<String, List<String>> headers = new HashMap<>();
 	private byte[] body;
+	private long contentLength;
 
 	public void addHeader(String headerName, String value) {
 		if (!headers.containsKey(headerName)) {
@@ -67,5 +68,13 @@ public class ShadowResponse {
 	@Override
 	public String toString() {
 		return getHtmlBody();
+	}
+
+	public void setContentLength(long contentLength) {
+		this.contentLength = contentLength;
+	}
+
+	public long getContentLength() {
+		return contentLength;
 	}
 }

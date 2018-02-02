@@ -39,14 +39,14 @@ public class ImageRunner {
 	public void run(boolean wait, String...args) {
 		stop();
 		try {
+			ContainerConfig containerConfig = ContainerConfig.builder()
+					.image(imageId)
+					.cmd(args)
+					.build();
 			ContainerCreation container = docker.createContainer(
-					ContainerConfig.builder()
-							.image(imageId)
-							.cmd(args)
-							.build());
+					containerConfig);
 			containerId = container.id();
 			docker.startContainer(containerId);
-
 
 			System.out.println("IP: " + docker.inspectContainer(containerId).networkSettings().ipAddress());
 			Map<String, List<PortBinding>> ports = docker.inspectContainer(containerId).networkSettings().ports();

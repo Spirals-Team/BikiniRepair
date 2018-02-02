@@ -47,7 +47,7 @@ public class PatchGeneration implements Serializable {
 				if (lapse.getDecisions().isEmpty()) {
 					countWithoutPatch ++;
 				}
-			}
+ 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

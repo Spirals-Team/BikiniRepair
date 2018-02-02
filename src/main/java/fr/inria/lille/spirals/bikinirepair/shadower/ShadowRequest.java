@@ -146,7 +146,7 @@ public class ShadowRequest {
 			host += ":" +  fr.inria.lille.spirals.bikinirepair.services.Services
 					.getAddressServer().getApplicationPort();
 		} catch (Exception e) {
-			return null;
+			host = "http://172.17.0.2:8080/";
 		}
 		StringBuilder uri = new StringBuilder(host);
 		String path = getRequestURI();
@@ -200,6 +200,7 @@ public class ShadowRequest {
 				r.header(headerName, value);
 			}
 		}
+		r = r.header("Cookie", null);
 		r = r.header("Cookie", cookies);
 		if(getContent() != null) {
 			r.content(new BytesContentProvider(getContent()));

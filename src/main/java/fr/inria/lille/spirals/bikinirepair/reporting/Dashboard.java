@@ -5,18 +5,25 @@ import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
+import spoon.Launcher;
 
 public class Dashboard {
 
-	public Dashboard() {
+	public static Launcher spoon = new Launcher();
 
+	public Dashboard() {
+		spoon.addInputResource("/home/thomas/git/mayocat-shop-test/shop/shipping/internal/src/main/java");
+		spoon.addInputResource("/home/thomas/git/mayocat-shop-test/shop/shipping/api/src/main/java");
+		//spoon.addInputResource("/home/thomas/git/BroadleafCommerce/admin/broadleaf-open-admin-platform/src/main/java");
+		spoon.getEnvironment().setNoClasspath(true);
+		spoon.buildModel();
 	}
 
 	public void start() {
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		context.setContextPath("/");
 
-		Server jettyServer = new Server(8000);
+		Server jettyServer = new Server(9000);
 		jettyServer.setHandler(context);
 
 		ServletHolder jerseyServlet = context.addServlet(ServletContainer.class, "/api/*");

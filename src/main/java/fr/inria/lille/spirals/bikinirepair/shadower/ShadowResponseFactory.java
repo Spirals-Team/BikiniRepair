@@ -1,6 +1,7 @@
 package fr.inria.lille.spirals.bikinirepair.shadower;
 
 import org.eclipse.jetty.client.api.ContentResponse;
+import org.eclipse.jetty.server.Response;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
@@ -26,6 +27,7 @@ public class ShadowResponseFactory {
 				shadowResponse.addHeader(headerName, value);
 			}
 		}
+		shadowResponse.setContentLength(((Response) response).getContentLength());
 
 
 		return shadowResponse;
@@ -48,6 +50,7 @@ public class ShadowResponseFactory {
 				shadowResponse.addHeader(headerName, value);
 			}
 		}
+		shadowResponse.setContentLength(response.getContent().length);
 
 		return shadowResponse;
 	}

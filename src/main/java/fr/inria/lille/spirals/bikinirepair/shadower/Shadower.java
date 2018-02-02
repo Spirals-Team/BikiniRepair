@@ -1,5 +1,6 @@
 package fr.inria.lille.spirals.bikinirepair.shadower;
 
+import fr.inria.lille.spirals.bikinirepair.oracle.regression.RegressionOracleImpl;
 import fr.inria.lille.spirals.bikinirepair.oracle.request.RequestOracle;
 import fr.inria.lille.spirals.bikinirepair.oracle.request.RequestOracleIpml;
 import fr.inria.lille.spirals.bikinirepair.patch.PatchGeneration;
@@ -14,9 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Shadower {
-	private static final int PORT = 8080;
+	private static final int PORT = 9999;
 
-	private Map<String, String> cookies = new HashMap<String, String>();
+	private Map<String, String> patchCookies = new HashMap<String, String>();
+	private Map<String, String> regressionCookies = new HashMap<String, String>();
 	private String regressionImageName;
 
 	public Shadower(String regressionImageName) {
@@ -38,31 +40,51 @@ public class Shadower {
 				String cookiesKey = getCookiesKey(request.getHeaders().get("Cookie"));
 				String responseCookiesKey = getCookiesKey(response.getHeaders().get("Set-Cookie"));
 
-				String proxyCookies = null;
-				if (cookies.containsKey(cookiesKey) && cookiesKey != null) {
-					proxyCookies = cookies.get(cookiesKey);
+				String patchCookiesStr = null;
+				if (Shadower.this.patchCookies.containsKey(cookiesKey) && cookiesKey != null) {
+					patchCookiesStr = Shadower.this.patchCookies.get(cookiesKey);
+				}
+				String regressionCookiesStr = null;
+				if (regressionCookies.containsKey(cookiesKey) && cookiesKey != null) {
+					regressionCookiesStr = regressionCookies.get(cookiesKey);
 				}
 
 				RequestOracle requestOracle = new RequestOracleIpml();
 				if (requestOracle.isValid(request, response)) {
-					try {
-						// the request is send to the patch validation service to setup the state
-						ShadowResponse shadowResponse = request.execute(ServicesType.PATCH, proxyCookies);
-						if (shadowResponse != null) {
-							proxyCookies = getCookiesKey(shadowResponse.getHeaders().get("Set-Cookie"));
-							cookies.put(cookiesKey, proxyCookies);
+					if (response.getContentType() != null && response.getContentType().endsWith("html")) {
+						try {
+							// the request is send to the patch validation service to setup the state
+							ShadowResponse shadowResponse = request.execute(ServicesType.PATCH, patchCookiesStr);
+							if (shadowResponse != null) {
+								patchCookiesStr = getCookiesKey(shadowResponse.getHeaders().get("Set-Cookie"));
+								patchCookies.put(responseCookiesKey, patchCookiesStr);
+							}
+
+							System.out.println(regressionCookiesStr);
+							// the request is send to the patch validation service to setup the state
+							ShadowResponse regressionResponse = request.execute(ServicesType.VALIDATION, regressionCookiesStr);
+							if (regressionResponse != null) {
+								regressionCookiesStr = getCookiesKey(regressionResponse.getHeaders().get("Set-Cookie"));
+								regressionCookies.put(responseCookiesKey, regressionCookiesStr);
+							}
+							boolean isValid = new RegressionOracleImpl().isValid(request, response, regressionResponse);
+							System.out.println(request.getRequestURI() + ": " + isValid);
+							if (!isValid) {
+								System.out.println(response);
+								System.out.println(regressionResponse);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
 					}
 
 					if (!response.getHtmlBody().isEmpty()) {
 						// send the request to the patch validation service
-						new PatchValidation().run(request, response, regressionImageName);
+						new PatchValidation().run(request, response, regressionImageName, regressionCookiesStr);
 					}
 				} else {
 					// if the request is invalid, generate the patches by sending
-					new PatchGeneration(proxyCookies).run(request);
+					new PatchGeneration(patchCookiesStr).run(request);
 				}
 			}
 
@@ -79,6 +101,8 @@ public class Shadower {
 							if (!value.endsWith("deleted")) {
 								responseCookiesKey += value;
 							}
+						} else if (cookiesValue != null) {
+							responseCookiesKey += cookiesValue;
 						}
 					}
 				}
