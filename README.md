@@ -34,7 +34,7 @@ Long paper: [Production-Driven Patch Generation and Validation](http://arxiv.org
 
 ### Run the evaluation
 
-1. Gets the benchmark: https://github.com/Spirals-Team/BikiniRepair-benchmark
+1. Gets the benchmark: https://github.com/Spirals-Team/itzal-experiments
 2. Builds each docker image on your system
 3. Start Itzal/BikiniRepair `java -cp target/classes:target/test-classes fr.inria.lille.spirals.bikinirepair.Evaluation` 
 4. The dashboard is now available at http://localhost:8080
